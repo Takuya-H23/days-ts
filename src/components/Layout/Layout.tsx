@@ -1,13 +1,15 @@
 import React from 'react'
 import { Box } from '@material-ui/core'
-import { Header } from '../../components'
+import Header from '../Header'
 import useStyles from './useStyles'
+
 interface Props {
   children: React.ReactNode
+  minHeight?: boolean
 }
 
-const Layout: React.FC<Props> = ({ children }) => {
-  const { wrapper } = useStyles()
+const Layout: React.FC<Props> = ({ children, minHeight }) => {
+  const { wrapper } = useStyles({ minHeight })
 
   return (
     <Box bgcolor="background.default">

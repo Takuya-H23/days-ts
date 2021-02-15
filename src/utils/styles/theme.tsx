@@ -15,17 +15,17 @@ export const darkTheme = createMuiTheme(
     palette: {
       type: 'dark',
       text: {
-        primary: '#FFFFFF'
+        primary: '#FFFFFF',
+        secondary: '#818181'
+      },
+      background: {
+        default: '#161618',
+        paper: '#212124'
+      },
+      secondary: {
+        main: '#000000'
       }
     }
   },
   base
 )
-
-// export const darkTheme = Object.assign({}, theme, dark)
-
-// export const lightTheme = createMuiTheme({
-//   palette: {
-//     type: 'light'
-//   }
-// })
