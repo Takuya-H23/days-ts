@@ -9,12 +9,12 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ children, minHeight }) => {
-  const { wrapper } = useStyles({ minHeight })
+  const { mainWrapper, wrapper } = useStyles({ minHeight })
 
   return (
-    <Box bgcolor="background.default">
+    <Box bgcolor="background.default" className={wrapper}>
       <Header />
-      <Box className={wrapper}>{children}</Box>
+      <Box className={mainWrapper}>{children}</Box>
     </Box>
   )
 }
