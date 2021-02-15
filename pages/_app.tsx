@@ -1,6 +1,8 @@
-import {AppProps } from 'next/app'
+import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
+import { ThemeProvider } from '@material-ui/core'
+import { darkTheme } from '../src/utils/styles/theme'
 import '../styles/globals.css'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -20,7 +22,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <Component {...pageProps} />
-    </>)
+      <ThemeProvider theme={darkTheme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </>
+  )
 }
-

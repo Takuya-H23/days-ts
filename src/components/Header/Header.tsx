@@ -1,11 +1,13 @@
 import React from 'react'
-import { AppBar, Box, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
 const Header: React.FC = () => {
   return (
-    <AppBar>
+    <AppBar position="static">
       <Toolbar>
-        <Typography variant="h1">Days</Typography>
+        <Typography variant="h1" color="textPrimary">
+          Days
+        </Typography>
       </Toolbar>
     </AppBar>
   )
