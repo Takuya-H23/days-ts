@@ -1,9 +1,8 @@
-import { Box, Button } from '@material-ui/core'
+import React from 'react'
+import { Layout } from '../src/views'
 
-export default function Home() {
-  return (
-    <Box m={5} p={5}>
-      <Button variant="contained">Here</Button>
-    </Box>
-  )
+const Home: React.FC = () => {
+  return <Layout />
 }
+
+export default Home
