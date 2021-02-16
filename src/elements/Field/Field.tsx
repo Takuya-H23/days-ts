@@ -51,7 +51,7 @@ const Field: React.FC<Props> = ({
   value,
   InputProps = {
     //@ts-ignore
-    endAdornment: <Box>{createElement(icons[name])}</Box>,
+    endAdornment: <Box mr={1.5}>{createElement(icons[name])}</Box>,
   },
 }) => {
   return (

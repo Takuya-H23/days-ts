@@ -6,18 +6,25 @@ import { useInputs } from '../hooks'
 const iv = {
   username: '',
   password: '',
+  email: '',
 }
 
-const SignUp: React.FC = () => {
+const SignUp = () => {
   const { inputs, handleChange } = useInputs(iv)
   return (
     <Layout minHeight>
-      <Form>
+      <Form spacing={5}>
         <Field
           name="username"
           label="Username"
           onChange={handleChange}
           value={inputs.username}
+        />
+        <Field
+          name="email"
+          label="Email"
+          onChange={handleChange}
+          value={inputs.email}
         />
         {/* @ts-ignore */}
         <Field.Password

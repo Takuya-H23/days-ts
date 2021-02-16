@@ -1,7 +1,6 @@
-import React from 'react'
 import { Layout } from '../components'
 
-const Home: React.FC = () => {
+const Home = () => {
   return <Layout>Index page</Layout>
 }
 
