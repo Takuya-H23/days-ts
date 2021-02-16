@@ -1,5 +1,5 @@
 import React, { createElement } from 'react'
-import { Grid, TextField } from '@material-ui/core'
+import { Box, Grid, IconButton, TextField } from '@material-ui/core'
 import {
   AccountBox,
   Email,
@@ -22,6 +22,10 @@ type GridItemProps = {
   xl?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 'auto' | 10 | 11 | 12 | boolean
 }
 
+type InputProps = {
+  endAdornment: React.ReactNode
+}
+
 interface Props {
   GridItemProps?: GridItemProps
   label?: string
@@ -29,6 +33,7 @@ interface Props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   type?: string
   value: string
+  InputProps?: InputProps
 }
 
 const Field: React.FC<Props> = ({
@@ -44,6 +49,10 @@ const Field: React.FC<Props> = ({
   onChange,
   type = 'text',
   value,
+  InputProps = {
+    //@ts-ignore
+    endAdornment: <Box>{createElement(icons[name])}</Box>,
+  },
 }) => {
   return (
     <Grid item {...GridItemProps}>
@@ -52,10 +61,7 @@ const Field: React.FC<Props> = ({
         name={name}
         onChange={onChange}
         value={value}
-        InputProps={{
-          //@ts-ignore
-          endAdornment: createElement(icons[name]),
-        }}
+        InputProps={InputProps}
         type={type}
         variant="outlined"
         fullWidth
@@ -63,5 +69,27 @@ const Field: React.FC<Props> = ({
     </Grid>
   )
 }
+
+const withPassword = (Component: React.FC<Props>) => (props: Props) => {
+  const [type, setType] = React.useState('password')
+  const toggleType = () =>
+    setType(cur => (cur === 'password' ? 'text' : 'password'))
+
+  return (
+    <Component
+      {...props}
+      type={type}
+      InputProps={{
+        endAdornment: (
+          <IconButton onClick={toggleType}>
+            {type === 'password' ? <VisibilityOff /> : <Visibility />}
+          </IconButton>
+        ),
+      }}
+    />
+  )
+}
+// @ts-ignore
+Field.Password = withPassword(Field)
 
 export default Field
