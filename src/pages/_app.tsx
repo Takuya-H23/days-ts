@@ -9,6 +9,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
+      //@ts-ignore
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])

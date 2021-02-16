@@ -30,7 +30,7 @@ interface Props {
   GridItemProps?: GridItemProps
   label?: string
   name: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => any
   type?: string
   value: string
   InputProps?: InputProps

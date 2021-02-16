@@ -10,7 +10,6 @@ const iv = {
 
 const SignUp: React.FC = () => {
   const { inputs, handleChange } = useInputs(iv)
-
   return (
     <Layout minHeight>
       <Form>
