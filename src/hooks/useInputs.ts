@@ -13,7 +13,6 @@ export default function useInputs(iv: InitialValues) {
       [e.target.name]: e.target.value
     })
   
-
   return {
     inputs,
     resetInputs,

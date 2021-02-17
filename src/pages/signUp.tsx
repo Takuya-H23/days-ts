@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box, Typography } from '@material-ui/core'
 import { Layout } from '../components'
 import { Field, Form } from '../elements'
 import { useInputs } from '../hooks'
@@ -13,6 +14,9 @@ const SignUp = () => {
   const { inputs, handleChange } = useInputs(iv)
   return (
     <Layout minHeight>
+      <Typography variant="h2" color="textPrimary" gutterBottom>
+        Sing up
+      </Typography>
       <Form spacing={5}>
         <Field
           name="username"
@@ -35,6 +39,11 @@ const SignUp = () => {
           type="password"
         />
       </Form>
+      <Box mt={3}>
+        <Typography variant="body1" color="textPrimary">
+          Already have an account? Login in from here
+        </Typography>
+      </Box>
     </Layout>
   )
 }
