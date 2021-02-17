@@ -1,0 +1,2 @@
+DB_CONNECTION_STRING=postgresql://postgres:mysecretpassword@localhost:5432/days
+JWT_SECRET=ie92n$@lksafdiinb3987sh8cslkiadnddddddd22k3ji!lkjlsdfdf
