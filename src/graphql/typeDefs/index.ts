@@ -12,12 +12,13 @@ export default gql`
 
   type User {
     user_id: ID!
+    username: String!
     email: String!
     created_at: String!
     last_login: String
   }
 
-  input SignUpInput {
+  input SignInInput {
     email: String!
     password: String!
   }

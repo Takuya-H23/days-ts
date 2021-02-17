@@ -1,5 +1,5 @@
 const signIn = async () => {
-  return null
+  return { username: 'test', 'email': 'test', 'created_at': 'now'}
 }
 
 export default signIn
