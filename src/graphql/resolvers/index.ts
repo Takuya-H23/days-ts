@@ -1,4 +1,5 @@
 import signUp from './singUp'
+import signIn from './signIn'
 import hello from './hello'
 
 export default {
@@ -6,6 +7,7 @@ export default {
     hello
   },
   Mutation: {
+    signIn,
     signUp,
   }
 }
