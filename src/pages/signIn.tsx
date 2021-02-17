@@ -22,8 +22,20 @@ const signInQuery = gql`
   }
 `
 
-const useSignIn = (vars: { input: { email: string; password: string } }) =>
-  useMutation('signIn', async () => await request(END_POINT, signInQuery, vars))
+interface SignInValues {
+  email: string
+  password: string
+}
+
+interface Input {
+  input: SignInValues
+}
+
+const useSignIn = (input: Input) =>
+  useMutation(
+    'signIn',
+    async () => await request(END_POINT, signInQuery, input)
+  )
 
 const SignIn = () => {
   const { input, handleChange } = useInput(iv)
