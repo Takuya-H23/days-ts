@@ -29,6 +29,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
+    "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.14.28",
     "@types/pg": "^7.14.10",
     "@types/ramda": "types/npm-ramda#dist",
