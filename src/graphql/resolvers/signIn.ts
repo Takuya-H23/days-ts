@@ -25,27 +25,22 @@ interface User {
 const signIn = async (_, { input }, { pool, cookies}) => {
   const getUser = () => pool.query(signInQuery, [input.email])
 
+  const setAuthCookie = (token: string) => () => cookies.set('auth-cookie', token, {
+    httpOnly: true,
+    sameSite: 'strict',
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  })
 
-  const userTE = pipe(
+  const signInUser = pipe(
     TE.tryCatch<Error, any>(getUser, genError),
     TE.map(compose(head, prop('rows'))),
     TE.chain(user => isNil(user) ? TE.left(new Error('User not found')) :TE.right(user)),
     TE.map(user => ({ token: genToken(user.user_id), user})),
-    TE.chain(({ user, token }) => (setAuthCookie(token),TE.right(user))), 
+    TE.chain(({ user, token }) => (setAuthCookie(token)(),TE.right(user))),
     TE.fold(T.of, T.of)
   )
 
-  const cookieConfig = {
-    httpOnly: true,
-    sameSite: 'strict',
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  }
-
-  const setAuthCookie = (token: string) => cookies.set('auth-cookie', token, cookieConfig)
-
-  const res = userTE()
-  return res
-  //@ts-ignore
+  return await signInUser()
   // return { username: 'test', 'email': 'test', 'created_at': 'now'}
 }
 
