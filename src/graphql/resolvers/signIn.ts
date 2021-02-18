@@ -6,9 +6,9 @@ import { compose, head, isNil, prop } from 'ramda'
 const signInQuery = 'SELECT * FROM users WHERE email = $1'
 
 
-const id = (x: any) => x
+const id = (x: any): any => x
 
-const genError = (e: any) => new Error(String(Error))
+const genError = (e: any): any => new Error(String(Error))
 
 //@ts-ignore
 const signIn = async (_, { input }, { pool, cookies}) => {
@@ -17,7 +17,6 @@ const signIn = async (_, { input }, { pool, cookies}) => {
   const userTE = pipe(
     TE.tryCatch<Error, any>(getUser, genError),
     TE.map(compose(head, prop('rows'))),
-    //@ts-ignore
     TE.chain(user => isNil(user) ? TE.left(new Error('User not found')) : TE.right(user)),
     TE.fold(T.of, T.of)
   )
