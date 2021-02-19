@@ -2,7 +2,7 @@ type PredicateContramap = (x: any) => any
 type PredicateRun = (x: any) => boolean
 
 interface Predicate {
-  run: (x: any) => boolean
+  run: PredicateRun
   contramap: (f: PredicateContramap) => Predicate
   concat: (x: Predicate) => Predicate
 }
