@@ -7,7 +7,7 @@ export interface User {
   last_login?: string | null
 }
 
-export interface Payload {
+export interface UserPayload {
   user: User
   token: token
 }

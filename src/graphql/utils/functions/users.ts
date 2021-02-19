@@ -1,13 +1,12 @@
 import jwt from 'jsonwebtoken'
-import * as T from 'fp-ts/Task'
 import * as TE from 'fp-ts/TaskEither'
-import * as E from 'fp-ts/Either'
 import { pipe } from 'fp-ts/function'
 import { compose, head, isNil, prop } from 'ramda'
 import { userTypes as U } from '../../../utils/types'
+import { AUTH } from '../../../utils/constants'
 
 export const setAuthCookie = (cookies: any) => (token: string) => () =>
-  cookies.set('auth-cookie', token, {
+  cookies.set(AUTH.AUTH_COOKIE, token, {
     httpOnly: true,
     sameSite: 'strict',
     maxAge: 1000 * 60 * 60 * 24 * 7,
