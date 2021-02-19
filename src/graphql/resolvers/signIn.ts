@@ -1,47 +1,39 @@
-import * as T from 'fp-ts/Task'
 import * as TE from 'fp-ts/TaskEither'
-import * as E from 'fp-ts/Either'
-import { pipe}  from 'fp-ts/function'
-import { compose, head, isNil, prop } from 'ramda'
-import jwt from 'jsonwebtoken'
+import * as E from 'fp-ts/lib/Either'
+import { pipe } from 'fp-ts/function'
+import { users } from '../utils'
 const signInQuery = 'SELECT * FROM users WHERE email = $1'
-// @ts-ignore
-const genToken = (id: string): string => jwt.sign({ id }, process.env.JWT_SECRET)
-
-
-const id = (x: any): any => x
-
-const genError = (e: any): any => new Error(String(Error))
 
 interface User {
-  user_id: any
+  user_id: string
   username: string
-  email: string
   created_at: string
-  last_login: string | null
+  last_login?: string | null
 }
+
+type token = string
+
+interface Payload {
+  user: User,
+  token: token
+}
+
+const id = (x:any): any => x 
 
 //@ts-ignore
 const signIn = async (_, { input }, { pool, cookies}) => {
   const getUser = () => pool.query(signInQuery, [input.email])
 
-  const setAuthCookie = (token: string) => () => cookies.set('auth-cookie', token, {
-    httpOnly: true,
-    sameSite: 'strict',
-    maxAge: 1000 * 60 * 60 * 24 * 7
-  })
-
   const signInUser = pipe(
-    TE.tryCatch<Error, any>(getUser, genError),
-    TE.map(compose(head, prop('rows'))),
-    TE.chain(user => isNil(user) ? TE.left(new Error('User not found')) :TE.right(user)),
-    TE.map(user => ({ token: genToken(user.user_id), user})),
-    TE.chain(({ user, token }) => (setAuthCookie(token)(),TE.right(user))),
-    TE.fold(T.of, T.of)
+    users.extractUser(getUser), 
+    TE.map((user: User): Payload => ({ user, token: users.genToken(process.env.JWT_SECRET, user.user_id)})),
   )
 
   return await signInUser()
-  // return { username: 'test', 'email': 'test', 'created_at': 'now'}
+    .then(E.fold(
+      id, 
+      ({ user, token}) => (users.setAuthCookie(cookies)(token)(), user) 
+    ))
 }
 
 export default signIn
