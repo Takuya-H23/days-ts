@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react'
 
-interface InitialValues  {
+interface InitialValues {
   [key: string]: string
 }
 
-export default function useInputs(iv: InitialValues) {
+export default function useInput(iv: InitialValues) {
   const [input, setInput] = React.useState(iv)
 
   const resetInput = () => setInput(iv)
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInput({
       ...input,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
-  
+
   return {
     input,
     resetInput,
