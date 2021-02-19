@@ -22,20 +22,20 @@ const SignUp = () => {
           name="username"
           label="Username"
           onChange={handleChange}
-          value={inputs.username}
+          value={input.username}
         />
         <Field
           name="email"
           label="Email"
           onChange={handleChange}
-          value={inputs.email}
+          value={input.email}
         />
         {/* @ts-ignore */}
         <Field.Password
           name="password"
           label="Password"
           onChange={handleChange}
-          value={inputs.password}
+          value={input.password}
           type="password"
         />
       </Form>
