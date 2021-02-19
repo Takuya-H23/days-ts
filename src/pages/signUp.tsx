@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { Layout } from '../components'
 import { Field, Form } from '../elements'
-import { useInputs } from '../hooks'
+import { useInput } from '../hooks'
 
 const iv = {
   username: '',
@@ -11,7 +11,7 @@ const iv = {
 }
 
 const SignUp = () => {
-  const { inputs, handleChange } = useInputs(iv)
+  const { input, handleChange } = useInput(iv)
   return (
     <Layout minHeight>
       <Typography variant="h2" color="textPrimary" gutterBottom>

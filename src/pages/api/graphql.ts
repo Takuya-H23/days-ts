@@ -14,6 +14,7 @@ interface NextApi  {
   res: NextApiResponse
 }
 
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
