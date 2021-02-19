@@ -17,7 +17,7 @@ const SignUp = () => {
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sing up
       </Typography>
-      <Form spacing={5}>
+      <Form onSubmit={e => {}} spacing={5}>
         <Field
           name="username"
           label="Username"
