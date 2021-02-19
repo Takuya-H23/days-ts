@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { useMutation } from 'react-query'
 import { request, gql } from 'graphql-request'
 import { Layout } from '../components'
@@ -51,7 +51,7 @@ const SignIn = () => {
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sign in
       </Typography>
-      <Form spacing={5}>
+      <Form onSubmit={handleSubmit} submitText="Sign in" spacing={5}>
         <Field
           name="email"
           label="email"
@@ -65,7 +65,6 @@ const SignIn = () => {
           value={input.password}
           onChange={handleChange}
         />
-        <button onClick={handleSubmit}>Submit</button>
       </Form>
     </Layout>
   )
