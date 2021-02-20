@@ -4,13 +4,12 @@ import { request, gql } from 'graphql-request'
 import { Layout } from '../components'
 import { Field, Form } from '../elements'
 import { useInput } from '../hooks'
+import { ROUTES } from '../utils/constants'
 
 const iv = {
   email: '',
   password: '',
 }
-
-const END_POINT = '/api/graphql'
 
 const signInQuery = gql`
   mutation($input: SignInInput) {
@@ -34,7 +33,7 @@ interface Input {
 const useSignIn = (input: Input) =>
   useMutation(
     'signIn',
-    async () => await request(END_POINT, signInQuery, input)
+    async () => await request(ROUTES.END_POINT, signInQuery, input)
   )
 
 const SignIn = () => {
