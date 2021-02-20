@@ -3,7 +3,7 @@ import { Typography, Snackbar } from '@material-ui/core'
 import { Alert, AlertTitle } from '@material-ui/lab'
 import { useMutation } from 'react-query'
 import { request, gql } from 'graphql-request'
-import { isEmpty } from 'ramda'
+import { isEmpty, compose, prop, head } from 'ramda'
 import { Layout } from '../components'
 import { Field, Form } from '../elements'
 import { useInput } from '../hooks'
@@ -39,6 +39,14 @@ const useSignIn = (input: Input) =>
     async () => await request(ROUTES.END_POINT, signInQuery, input)
   )
 
+// {mutation.isError && mutation.error.response.errors[0].message}
+const getErrorMessage = compose(
+  prop('message'),
+  head,
+  prop('errors'),
+  prop('response')
+)
+
 const SignIn = () => {
   const { input, handleChange } = useInput(iv)
   const [error, setError] = React.useState<{ [key: string]: string }>({})
@@ -53,7 +61,6 @@ const SignIn = () => {
   }
 
   React.useEffect(() => {
-    console.log('run')
     let timer: any
 
     if (mutation.isError) {
@@ -79,7 +86,7 @@ const SignIn = () => {
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           {/* @ts-ignore */}
-          {mutation.isError && mutation.error.response.errors[0].message}
+          {mutation.isError && getErrorMessage(mutation.error)}
         </Alert>
       </Snackbar>
       <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
