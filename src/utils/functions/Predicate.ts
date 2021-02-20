@@ -1,7 +1,7 @@
 type PredicateContramap = (x: any) => any
 type PredicateRun = (x: any) => boolean
 
-interface Predicate {
+export interface Predicate {
   run: PredicateRun
   contramap: (f: PredicateContramap) => Predicate
   concat: (x: Predicate) => Predicate
@@ -13,6 +13,7 @@ const Predicate = (run: PredicateRun): Predicate => ({
   concat: (other: Predicate) => Predicate(x => run(x) && other.run(x)),
 })
 
+//@ts-ignore
 Predicate.of = (run: PredicateRun) => Predicate(run)
 
 export default Predicate

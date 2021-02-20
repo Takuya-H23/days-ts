@@ -1,14 +1,19 @@
 import { Button, Typography } from '@material-ui/core'
 import { useMutation } from 'react-query'
 import { request, gql } from 'graphql-request'
+import { isEmpty } from 'ramda'
 import { Layout } from '../components'
 import { Field, Form } from '../elements'
 import { useInput } from '../hooks'
 import { ROUTES } from '../utils/constants'
+import { validateInput } from '../utils/functions'
+interface SignInValues {
+  email: string
+  password: string
+}
 
-const iv = {
-  email: '',
-  password: '',
+interface Input {
+  input: SignInValues
 }
 
 const signInQuery = gql`
@@ -21,13 +26,9 @@ const signInQuery = gql`
   }
 `
 
-interface SignInValues {
-  email: string
-  password: string
-}
-
-interface Input {
-  input: SignInValues
+const iv = {
+  email: '',
+  password: '',
 }
 
 const useSignIn = (input: Input) =>
@@ -43,7 +44,9 @@ const SignIn = () => {
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    return mutation.mutate()
+    const res = validateInput(input)
+
+    return isEmpty(res) ? mutation.mutate() : () => {}
   }
   return (
     <Layout minHeight>
