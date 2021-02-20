@@ -28,6 +28,8 @@ type InputProps = {
 
 interface Props {
   GridItemProps?: GridItemProps
+  error: boolean
+  helperText?: string
   label?: string
   name: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => any
@@ -44,6 +46,8 @@ const Field: React.FC<Props> = ({
     lg: 12,
     xl: 12,
   },
+  error,
+  helperText = undefined,
   label,
   name,
   onChange,
@@ -57,6 +61,8 @@ const Field: React.FC<Props> = ({
   return (
     <Grid item {...GridItemProps}>
       <TextField
+        error={error}
+        helperText={helperText}
         label={label || name}
         name={name}
         onChange={onChange}

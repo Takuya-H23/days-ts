@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Typography } from '@material-ui/core'
 import { useMutation } from 'react-query'
 import { request, gql } from 'graphql-request'
@@ -31,8 +32,6 @@ const iv = {
   password: '',
 }
 
-const fields = ['email', 'password']
-
 const useSignIn = (input: Input) =>
   useMutation(
     'signIn',
@@ -41,6 +40,7 @@ const useSignIn = (input: Input) =>
 
 const SignIn = () => {
   const { input, handleChange } = useInput(iv)
+  const [error, setError] = React.useState<{ [key: string]: string }>({})
   //@ts-ignore
   const mutation = useSignIn({ input })
 
@@ -48,7 +48,7 @@ const SignIn = () => {
     e.preventDefault()
     const res = validateInput(input)
 
-    return isEmpty(res) ? mutation.mutate() : () => {}
+    return isEmpty(res) ? mutation.mutate() : setError(res)
   }
   return (
     <Layout minHeight>
@@ -60,10 +60,14 @@ const SignIn = () => {
           name="email"
           label="email"
           value={input.email}
+          error={Boolean(error.email)}
+          helperText={error.email || ' '}
           onChange={handleChange}
         />
         {/* @ts-ignore */}
         <Field.Password
+          helperText="Password length must be 6 to 16"
+          error={Boolean(error.password)}
           name="password"
           label="password"
           value={input.password}
