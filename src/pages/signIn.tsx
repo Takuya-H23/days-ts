@@ -1,27 +1,15 @@
 import React from 'react'
-import { Typography, Snackbar } from '@material-ui/core'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import { useMutation } from 'react-query'
-import { request, gql } from 'graphql-request'
+import { Typography } from '@material-ui/core'
 import { isEmpty, compose, prop, head } from 'ramda'
 import { Layout } from '../components'
-import { Field, Form } from '../elements'
+import { Field, Form, FormAlert } from '../elements'
 import { useInput, useSignIn } from '../hooks'
-import { ROUTES } from '../utils/constants'
 import { validateInput } from '../utils/functions'
 
 const iv = {
   email: '',
   password: '',
 }
-
-// {mutation.isError && mutation.error.response.errors[0].message}
-const getErrorMessage = compose(
-  prop('message'),
-  head,
-  prop('errors'),
-  prop('response')
-)
 
 const SignIn = () => {
   const { input, handleChange } = useInput(iv)
@@ -55,16 +43,7 @@ const SignIn = () => {
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sign in
       </Typography>
-      <Snackbar
-        open={mutation.isError}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {/* @ts-ignore */}
-          {mutation.isError && getErrorMessage(mutation.error)}
-        </Alert>
-      </Snackbar>
+      <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
         <Field
           name="email"
