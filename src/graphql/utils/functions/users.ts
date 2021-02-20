@@ -23,7 +23,11 @@ const genError = (err: Error) => (
 const getHeadFromRows = compose(head, prop('rows'))
 
 const checkUserExists = (user: U.User): TE.TaskEither<Error, U.User> =>
-  isNil(user) ? TE.left(new Error('User not found')) : TE.right(user)
+  isNil(user)
+    ? TE.left(
+        new Error('User not found. Please check your credentials are correct')
+      )
+    : TE.right(user)
 
 export const extractUser = (getUser: any): TE.TaskEither<Error, U.User> =>
   pipe(
