@@ -31,6 +31,8 @@ const iv = {
   password: '',
 }
 
+const fields = ['email', 'password']
+
 const useSignIn = (input: Input) =>
   useMutation(
     'signIn',
