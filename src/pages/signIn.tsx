@@ -1,5 +1,6 @@
 import React from 'react'
-import { Button, Typography } from '@material-ui/core'
+import { Typography, Snackbar } from '@material-ui/core'
+import { Alert, AlertTitle } from '@material-ui/lab'
 import { useMutation } from 'react-query'
 import { request, gql } from 'graphql-request'
 import { isEmpty } from 'ramda'
@@ -50,12 +51,38 @@ const SignIn = () => {
 
     return isEmpty(res) ? mutation.mutate() : setError(res)
   }
+
+  React.useEffect(() => {
+    console.log('run')
+    let timer: any
+
+    if (mutation.isError) {
+      timer = setTimeout(() => {
+        mutation.reset()
+      }, 3000)
+    }
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [mutation.isLoading])
+
   return (
     <Layout minHeight>
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sign in
       </Typography>
-      <Form onSubmit={handleSubmit} submitText="Sign in" spacing={5}>
+      <Snackbar
+        open={mutation.isError}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {/* @ts-ignore */}
+          {mutation.isError && mutation.error.response.errors[0].message}
+        </Alert>
+      </Snackbar>
+      <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
         <Field
           name="email"
           label="email"
