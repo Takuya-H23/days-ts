@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "test": "jest --collectCoverage",
     "build": "next build",
     "start": "next start"
   },

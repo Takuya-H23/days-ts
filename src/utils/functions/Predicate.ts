@@ -13,7 +13,4 @@ const Predicate = (run: PredicateRun): Predicate => ({
   concat: (other: Predicate) => Predicate(x => run(x) && other.run(x)),
 })
 
-//@ts-ignore
-Predicate.of = (run: PredicateRun) => Predicate(run)
-
 export default Predicate
