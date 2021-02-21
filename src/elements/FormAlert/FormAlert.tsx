@@ -11,7 +11,7 @@ const getErrorMessage = compose(
 
 interface Props {
   isError: boolean
-  error: any
+  error?: any
 }
 
 export default function FormAlert({ isError, error }: Props) {

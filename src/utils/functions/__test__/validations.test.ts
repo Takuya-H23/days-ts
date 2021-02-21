@@ -1,4 +1,4 @@
-import { isPresent, isEmail, isPassword } from '../validations'
+import { isPresent, isEmail, isPassword } from '../validateInput'
 
 test('should return false when string is a falsy', () => {
   expect(isPresent(' ')).toBeFalsy()
