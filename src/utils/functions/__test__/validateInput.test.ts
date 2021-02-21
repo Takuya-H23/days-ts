@@ -1,4 +1,4 @@
-import { isPresent, isEmail, isPassword } from '../validateInput'
+import validateInput, { isPresent, isEmail, isPassword } from '../validateInput'
 
 test('should return false when string is a falsy', () => {
   expect(isPresent(' ')).toBeFalsy()
@@ -39,3 +39,26 @@ test.each([['123456'], ['myValidPassword']])(
     expect(isPassword(password)).toBe(true)
   }
 )
+
+test('should return error object when invalid input values exist', () => {
+  const invalidInput = {
+    username: ' ',
+    email: 'myEmail',
+    password: 'validPassword',
+  }
+
+  expect(validateInput(invalidInput)).toEqual({
+    username: 'Please enter a valid username',
+    email: 'Please enter a valid email',
+  })
+})
+
+test('should return an empty object when all the input values are valid', () => {
+  const validInput = {
+    username: 'john doe',
+    email: 'john@lol.com',
+    password: 'helloJohnDoe',
+  }
+
+  expect(validateInput(validInput)).toEqual({})
+})
