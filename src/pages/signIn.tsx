@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import { isEmpty, compose, prop, head } from 'ramda'
+import { isEmpty } from 'ramda'
 import { Layout } from '../components'
 import { Field, Form, FormAlert } from '../elements'
 import { useInput, useSignIn } from '../hooks'
