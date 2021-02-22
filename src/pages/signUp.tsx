@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { isEmpty } from 'ramda'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography, LinearProgress } from '@material-ui/core'
 import { Layout } from '../components'
 import { Field, Form, FormAlert } from '../elements'
 import { useInput, useSignUp } from '../hooks'
@@ -49,6 +49,16 @@ const SignUp = () => {
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sing up
       </Typography>
+      {mutation.isLoading && (
+        <LinearProgress
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+          }}
+        />
+      )}
       <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} spacing={3}>
         <Field

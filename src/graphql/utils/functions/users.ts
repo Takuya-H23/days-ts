@@ -15,11 +15,10 @@ export const setAuthCookie = (cookies: any) => (token: string) =>
 export const genToken = (secret: any, id: string): string =>
   jwt.sign({ id }, secret)
 
-export const genServerError = (err: Error) => (
-  console.error(err),
+export const genServerError = (err: Error) =>
   //@ts-ignore
   new Error(err.detail || 'Sorry something went wrong. Please try it later')
-)
+
 //@ts-ignore
 const getHeadFromRows = compose(head, prop('rows'))
 
