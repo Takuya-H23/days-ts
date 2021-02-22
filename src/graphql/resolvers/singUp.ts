@@ -1,3 +1,4 @@
+import { hash } from 'bcryptjs'
 import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/function'
@@ -11,8 +12,10 @@ const id = (x: any): any => x
 
 // @ts-ignore
 export default async function signUp(_, { input }, { pool, cookies }) {
+  const hashed = await hash(input.password, 10)
+
   const insertUser = () =>
-    pool.query(signUpQuery, [input.username, input.email, input.password])
+    pool.query(signUpQuery, [input.username, input.email, hashed])
 
   const signUpUser = pipe(
     users.extractUser(insertUser),
