@@ -12,6 +12,8 @@ const iv = {
 
 const SignUp = () => {
   const { input, handleChange } = useInput(iv)
+  const [error, setError] = React.useState<{ [key: string]: string }>({})
+
   return (
     <Layout minHeight>
       <Typography variant="h2" color="textPrimary" gutterBottom>
@@ -23,18 +25,21 @@ const SignUp = () => {
           label="Username"
           onChange={handleChange}
           value={input.username}
+          error={Boolean(error.username)}
         />
         <Field
           name="email"
           label="Email"
           onChange={handleChange}
           value={input.email}
+          error={Boolean(error.email)}
         />
         {/* @ts-ignore */}
         <Field.Password
           name="password"
           label="Password"
           onChange={handleChange}
+          error={Boolean(error.password)}
           value={input.password}
           type="password"
         />
