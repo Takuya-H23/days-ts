@@ -52,7 +52,6 @@ const SignIn = () => {
       <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
         <Field
           name="email"
-          label="email"
           value={input.email}
           error={Boolean(error.email)}
           helperText={error.email || ' '}
@@ -63,7 +62,6 @@ const SignIn = () => {
           helperText="Password length must be 6 to 16"
           error={Boolean(error.password)}
           name="password"
-          label="password"
           value={input.password}
           onChange={handleChange}
         />

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "ES6",
       "dom",
@@ -21,6 +21,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "strictNullChecks": true,
+    "downlevelIteration": true
   },
   "include": [
     "next-env.d.ts",

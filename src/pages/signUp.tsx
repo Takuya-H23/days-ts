@@ -63,7 +63,6 @@ const SignUp = () => {
       <Form onSubmit={handleSubmit} spacing={3}>
         <Field
           name="username"
-          label="Username"
           onChange={handleChange}
           value={input.username}
           error={Boolean(error.username)}
@@ -71,7 +70,6 @@ const SignUp = () => {
         />
         <Field
           name="email"
-          label="Email"
           onChange={handleChange}
           value={input.email}
           error={Boolean(error.email)}
@@ -80,7 +78,6 @@ const SignUp = () => {
         {/* @ts-ignore */}
         <Field.Password
           name="password"
-          label="Password"
           onChange={handleChange}
           error={Boolean(error.password)}
           value={input.password}
