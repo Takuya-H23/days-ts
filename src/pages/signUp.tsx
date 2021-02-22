@@ -1,8 +1,13 @@
 import React from 'react'
+import Link from 'next/link'
 import { Box, Typography } from '@material-ui/core'
 import { Layout } from '../components'
 import { Field, Form } from '../elements'
 import { useInput } from '../hooks'
+import { ROUTES } from '../utils/constants'
+const {
+  ROUTES: { SIGN_IN },
+} = ROUTES
 
 const iv = {
   username: '',
@@ -46,7 +51,11 @@ const SignUp = () => {
       </Form>
       <Box mt={3}>
         <Typography variant="body1" color="textPrimary">
-          Already have an account? Login in from here
+          Already have an account?{' '}
+          <Link href={SIGN_IN.URL}>
+            <a>{SIGN_IN.LABEL}</a>
+          </Link>{' '}
+          from here
         </Typography>
       </Box>
     </Layout>

@@ -15,7 +15,7 @@ export const setAuthCookie = (cookies: any) => (token: string) => () =>
 export const genToken = (secret: any, id: string): string =>
   jwt.sign({ id }, secret)
 
-const genError = (err: Error) => (
+const genServerError = (err: Error) => (
   console.error(err),
   new Error('Sorry something went wrong. Please try it later')
 )
@@ -29,9 +29,9 @@ const checkUserExists = (user: U.User): TE.TaskEither<Error, U.User> =>
       )
     : TE.right(user)
 
-export const extractUser = (getUser: any): TE.TaskEither<Error, U.User> =>
+export const extractUser = (queryUser: any): TE.TaskEither<Error, U.User> =>
   pipe(
-    TE.tryCatch(getUser, genError),
+    TE.tryCatch(queryUser, genServerError),
     TE.map(getHeadFromRows),
     TE.chain(checkUserExists)
   )

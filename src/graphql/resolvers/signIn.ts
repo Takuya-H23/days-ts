@@ -10,10 +10,10 @@ const id = (x: any): any => x
 
 //@ts-ignore
 const signIn = async (_, { input }, { pool, cookies }) => {
-  const getUser = () => pool.query(signInQuery, [input.email])
+  const queryUser = () => pool.query(signInQuery, [input.email])
 
   const signInUser = pipe(
-    users.extractUser(getUser),
+    users.extractUser(queryUser),
     TE.map(
       (user: U.User): U.UserPayload => ({
         user,
