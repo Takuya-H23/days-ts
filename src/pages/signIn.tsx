@@ -1,10 +1,15 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import Link from 'next/link'
+import { Box, Typography } from '@material-ui/core'
 import { isEmpty } from 'ramda'
 import { Layout } from '../components'
 import { Field, Form, FormAlert } from '../elements'
 import { useInput, useSignIn } from '../hooks'
 import { validateInput } from '../utils/functions'
+import { ROUTES } from '../utils/constants'
+const {
+  ROUTES: { SIGN_UP },
+} = ROUTES
 
 const iv = {
   email: '',
@@ -30,7 +35,7 @@ const SignIn = () => {
     if (mutation.isError) {
       timer = setTimeout(() => {
         mutation.reset()
-      }, 3000)
+      }, 5000)
     }
 
     return () => {
@@ -63,6 +68,14 @@ const SignIn = () => {
           onChange={handleChange}
         />
       </Form>
+      <Box mt={2}>
+        <Typography variant="body1" color="textPrimary">
+          Need an account?{' '}
+          <Link href={SIGN_UP.URL}>
+            <a>{SIGN_UP.LABEL}</a>
+          </Link>
+        </Typography>
+      </Box>
     </Layout>
   )
 }

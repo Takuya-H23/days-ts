@@ -26,8 +26,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/graphql/utils/functions/__test__/users.test.js"  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.test.*"
   ]
 }

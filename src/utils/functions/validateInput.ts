@@ -11,10 +11,12 @@ export const isPassword = (password: string): boolean => {
   return length <= 16 && length >= 6
 }
 
+const checkPresence = Predicate(isPresent)
+
 const validations = {
-  username: Predicate(isPresent),
-  email: Predicate(isPresent).concat(Predicate(isEmail)),
-  password: Predicate(isPresent).concat(Predicate(isPassword)),
+  username: checkPresence,
+  email: checkPresence.concat(Predicate(isEmail)),
+  password: checkPresence.concat(Predicate(isPassword)),
 }
 
 const validateInput = (input: { [key: string]: string }) =>
