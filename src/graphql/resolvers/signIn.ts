@@ -30,10 +30,7 @@ const signIn = async (_, { input }, { pool, cookies }) => {
   )
 
   return await signInUser().then(
-    E.fold(
-      id,
-      ({ user, token }) => (users.setAuthCookie(cookies)(token)(), user)
-    )
+    E.fold(id, ({ user, token }) => (users.setAuthCookie(cookies)(token), user))
   )
 }
 

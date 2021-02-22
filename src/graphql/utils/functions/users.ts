@@ -5,7 +5,7 @@ import { compose, head, isNil, prop } from 'ramda'
 import { userTypes as U } from '../../../utils/types'
 import { AUTH } from '../../../utils/constants'
 
-export const setAuthCookie = (cookies: any) => (token: string) => () =>
+export const setAuthCookie = (cookies: any) => (token: string) =>
   cookies.set(AUTH.AUTH_COOKIE, token, {
     httpOnly: true,
     sameSite: 'strict',
@@ -15,7 +15,7 @@ export const setAuthCookie = (cookies: any) => (token: string) => () =>
 export const genToken = (secret: any, id: string): string =>
   jwt.sign({ id }, secret)
 
-const genServerError = (err: Error) => (
+export const genServerError = (err: Error) => (
   console.error(err),
   //@ts-ignore
   new Error(err.detail || 'Sorry something went wrong. Please try it later')
@@ -23,7 +23,7 @@ const genServerError = (err: Error) => (
 //@ts-ignore
 const getHeadFromRows = compose(head, prop('rows'))
 
-const checkUserExists = (user: U.User): TE.TaskEither<Error, U.User> =>
+export const checkUserExists = (user: U.User): TE.TaskEither<Error, U.User> =>
   isNil(user)
     ? TE.left(new Error('User not found. Please check your credentials'))
     : TE.right(user)
