@@ -25,9 +25,7 @@ const getHeadFromRows = compose(head, prop('rows'))
 
 const checkUserExists = (user: U.User): TE.TaskEither<Error, U.User> =>
   isNil(user)
-    ? TE.left(
-        new Error('User not found. Please check your credentials are correct')
-      )
+    ? TE.left(new Error('User not found. Please check your credentials'))
     : TE.right(user)
 
 export const extractUser = (queryUser: any): TE.TaskEither<Error, U.User> =>

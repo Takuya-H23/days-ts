@@ -36,7 +36,7 @@ const SignUp = () => {
     if (mutation.isError) {
       timer = setTimeout(() => {
         mutation.reset()
-      }, 3000)
+      }, 5000)
     }
 
     return () => {
