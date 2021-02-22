@@ -17,7 +17,8 @@ export const genToken = (secret: any, id: string): string =>
 
 const genServerError = (err: Error) => (
   console.error(err),
-  new Error('Sorry something went wrong. Please try it later')
+  //@ts-ignore
+  new Error(err.detail || 'Sorry something went wrong. Please try it later')
 )
 //@ts-ignore
 const getHeadFromRows = compose(head, prop('rows'))

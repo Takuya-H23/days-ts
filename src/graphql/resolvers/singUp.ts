@@ -5,14 +5,14 @@ import { users } from '../utils/functions'
 import { userTypes as U } from '../../utils/types'
 
 const signUpQuery =
-  'INSERT INTO users (username, email, password, create_at) VALUES ($1, $2, $3, NOW())'
+  'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
 
 const id = (x: any): any => x
 
 // @ts-ignore
 export default async function signUp(_, { input }, { pool, cookies }) {
   const insertUser = () =>
-    pool.query(signUpQuery, [input.username, input.email.input.password])
+    pool.query(signUpQuery, [input.username, input.email, input.password])
 
   const signUpUser = pipe(
     users.extractUser(insertUser),
