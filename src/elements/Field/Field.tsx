@@ -1,4 +1,5 @@
 import React, { createElement } from 'react'
+import { over, lensIndex, toUpper, join, compose, split } from 'ramda'
 import { Box, Grid, IconButton, TextField } from '@material-ui/core'
 import {
   AccountBox,
@@ -6,6 +7,13 @@ import {
   Visibility,
   VisibilityOff,
 } from '@material-ui/icons'
+
+const L = {
+  headLends: lensIndex(0),
+}
+
+export const toUpperHead = (x: string): string =>
+  compose(join(''), over(L.headLends, toUpper), split(''))(x)
 
 const icons = {
   username: AccountBox,
@@ -36,6 +44,7 @@ interface Props {
   type?: string
   value: string
   InputProps?: InputProps
+  id: string
 }
 
 const Field: React.FC<Props> = ({
@@ -57,13 +66,15 @@ const Field: React.FC<Props> = ({
     //@ts-ignore
     endAdornment: <Box mr={1.5}>{createElement(icons[name])}</Box>,
   },
+  id,
 }) => {
   return (
     <Grid item {...GridItemProps}>
       <TextField
+        id={id}
         error={error}
         helperText={helperText}
-        label={label || name}
+        label={label || toUpperHead(name)}
         name={name}
         onChange={onChange}
         value={value}
