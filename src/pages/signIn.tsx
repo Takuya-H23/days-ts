@@ -51,6 +51,7 @@ const SignIn = () => {
       <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
         <Field
+          id="signInUsername"
           name="email"
           value={input.email}
           error={Boolean(error.email)}
@@ -59,6 +60,7 @@ const SignIn = () => {
         />
         {/* @ts-ignore */}
         <Field.Password
+          id="signInPassword"
           helperText="Password length must be 6 to 16"
           error={Boolean(error.password)}
           name="password"

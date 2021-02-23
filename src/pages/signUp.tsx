@@ -62,6 +62,7 @@ const SignUp = () => {
       <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} spacing={3}>
         <Field
+          id="signUpUsername"
           name="username"
           onChange={handleChange}
           value={input.username}
@@ -69,6 +70,7 @@ const SignUp = () => {
           helperText={error.username || ' '}
         />
         <Field
+          id="signUpEmail"
           name="email"
           onChange={handleChange}
           value={input.email}
@@ -77,6 +79,7 @@ const SignUp = () => {
         />
         {/* @ts-ignore */}
         <Field.Password
+          id="signUpPassword"
           name="password"
           onChange={handleChange}
           error={Boolean(error.password)}

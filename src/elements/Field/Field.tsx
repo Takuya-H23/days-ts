@@ -44,6 +44,7 @@ interface Props {
   type?: string
   value: string
   InputProps?: InputProps
+  id: string
 }
 
 const Field: React.FC<Props> = ({
@@ -65,10 +66,12 @@ const Field: React.FC<Props> = ({
     //@ts-ignore
     endAdornment: <Box mr={1.5}>{createElement(icons[name])}</Box>,
   },
+  id,
 }) => {
   return (
     <Grid item {...GridItemProps}>
       <TextField
+        id={id}
         error={error}
         helperText={helperText}
         label={label || toUpperHead(name)}
