@@ -17,6 +17,7 @@ const comparePassword = (password: string) => (user: U.User) =>
 //@ts-ignore
 const signIn = async (_, { input }, { pool, cookies }) => {
   const queryUser = () => pool.query(signInQuery, [input.email])
+  console.log(input)
 
   const signInUser = pipe(
     users.extractUser(queryUser),

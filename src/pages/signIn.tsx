@@ -17,31 +17,11 @@ const iv = {
 }
 
 const SignIn = () => {
-  const { input, handleChange } = useInput(iv)
-  const [error, setError] = React.useState<{ [key: string]: string }>({})
-  //@ts-ignore
-  const mutation = useSignIn({ input })
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    const res = validateInput(input)
-
-    return isEmpty(res) ? (setError({}), mutation.mutate()) : setError(res)
-  }
-
-  React.useEffect(() => {
-    let timer: any
-
-    if (mutation.isError) {
-      timer = setTimeout(() => {
-        mutation.reset()
-      }, 5000)
-    }
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [mutation.isLoading])
+  // const { input, handleChange } = useInput(iv)
+  // const [error, setError] = React.useState<{ [key: string]: string }>({})
+  // //@ts-ignore
+  // const mutation = useSignIn({ input })
+  const { mutation, handleSubmit, input, handleChange, error } = useSignIn(iv)
 
   return (
     <Layout minHeight>
