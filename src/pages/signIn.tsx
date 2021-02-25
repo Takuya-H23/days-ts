@@ -1,12 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
+import { gql } from 'graphql-request'
 import { Box, Typography } from '@material-ui/core'
-import { isEmpty } from 'ramda'
 import { Layout } from '../components'
-import { Field, Form, FormAlert } from '../elements'
-import { useInput, useSignIn } from '../hooks'
-import { validateInput } from '../utils/functions'
+import { Field, Form, FormAlert, LinearProgress } from '../elements'
+import { useMutation } from '../hooks'
 import { ROUTES } from '../utils/constants'
+
 const {
   ROUTES: { SIGN_UP },
 } = ROUTES
@@ -16,38 +16,29 @@ const iv = {
   password: '',
 }
 
-const SignIn = () => {
-  const { input, handleChange } = useInput(iv)
-  const [error, setError] = React.useState<{ [key: string]: string }>({})
-  //@ts-ignore
-  const mutation = useSignIn({ input })
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    const res = validateInput(input)
-
-    return isEmpty(res) ? (setError({}), mutation.mutate()) : setError(res)
+const query = gql`
+  mutation($input: SignInInput) {
+    signIn(input: $input) {
+      username
+      email
+      created_at
+    }
   }
+`
 
-  React.useEffect(() => {
-    let timer: any
-
-    if (mutation.isError) {
-      timer = setTimeout(() => {
-        mutation.reset()
-      }, 5000)
-    }
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [mutation.isLoading])
+export default function SignIn() {
+  const { input, error, mutation, handleChange, handleSubmit } = useMutation({
+    iv,
+    query,
+    id: 'signIn',
+  })
 
   return (
     <Layout minHeight>
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sign in
       </Typography>
+      <LinearProgress isLoading={mutation.isLoading} />
       <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
         <Field
@@ -79,5 +70,3 @@ const SignIn = () => {
     </Layout>
   )
 }
-
-export default SignIn

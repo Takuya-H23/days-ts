@@ -2,12 +2,10 @@ import { compareSync } from 'bcryptjs'
 import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/function'
-import { users } from '../utils/functions'
+import { users, general } from '../utils/functions'
 import { userTypes as U } from '../../utils/types'
 
 const signInQuery = 'SELECT * FROM users WHERE email = $1'
-
-const id = (x: any): any => x
 
 const comparePassword = (password: string) => (user: U.User) =>
   compareSync(password, user.password)
@@ -30,7 +28,10 @@ const signIn = async (_, { input }, { pool, cookies }) => {
   )
 
   return await signInUser().then(
-    E.fold(id, ({ user, token }) => (users.setAuthCookie(cookies)(token), user))
+    E.fold(
+      general.id,
+      ({ user, token }) => (users.setAuthCookie(cookies)(token), user)
+    )
   )
 }
 
