@@ -2,11 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import { gql } from 'graphql-request'
 import { Box, Typography } from '@material-ui/core'
-import { isEmpty } from 'ramda'
 import { Layout } from '../components'
 import { Field, Form, FormAlert } from '../elements'
-import { useInput, useMutation, useSignIn } from '../hooks'
-import { validateInput } from '../utils/functions'
+import { useMutation } from '../hooks'
 import { ROUTES } from '../utils/constants'
 
 const {
@@ -28,7 +26,7 @@ const query = gql`
   }
 `
 
-const SignIn = () => {
+export default function SignIn() {
   const { input, error, mutation, handleChange, handleSubmit } = useMutation({
     iv,
     query,
@@ -71,5 +69,3 @@ const SignIn = () => {
     </Layout>
   )
 }
-
-export default SignIn

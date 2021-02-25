@@ -29,7 +29,6 @@ export default function useSignIn({ iv, id, query }: Args) {
   const { input, handleChange } = useInput(iv)
   const [error, setError] = React.useState<{ [key: string]: string }>({})
 
-  //@ts-ignore
   const mutation = useMutation(
     id,
     async () => await request(ROUTES.END_POINT, query, { input })
