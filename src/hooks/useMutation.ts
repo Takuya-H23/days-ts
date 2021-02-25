@@ -15,14 +15,24 @@ const signInQuery = gql`
     }
   }
 `
-export default function useSignIn(iv: { [key: string]: string }) {
+interface IV {
+  [key: string]: any
+}
+
+interface Args {
+  iv: IV
+  id: string
+  query: string
+}
+
+export default function useSignIn({ iv, id, query }: Args) {
   const { input, handleChange } = useInput(iv)
   const [error, setError] = React.useState<{ [key: string]: string }>({})
 
   //@ts-ignore
   const mutation = useMutation(
-    'signIn',
-    async () => await request(ROUTES.END_POINT, signInQuery, { input })
+    id,
+    async () => await request(ROUTES.END_POINT, query, { input })
   )
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -45,5 +55,5 @@ export default function useSignIn(iv: { [key: string]: string }) {
     }
   }, [mutation.isLoading])
 
-  return { mutation, handleSubmit, error, handleChange, input }
+  return { input, error, mutation, handleChange, handleSubmit }
 }

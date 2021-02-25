@@ -1,12 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
+import { gql } from 'graphql-request'
 import { Box, Typography } from '@material-ui/core'
 import { isEmpty } from 'ramda'
 import { Layout } from '../components'
 import { Field, Form, FormAlert } from '../elements'
-import { useInput, useSignIn } from '../hooks'
+import { useInput, useMutation, useSignIn } from '../hooks'
 import { validateInput } from '../utils/functions'
 import { ROUTES } from '../utils/constants'
+
 const {
   ROUTES: { SIGN_UP },
 } = ROUTES
@@ -16,12 +18,22 @@ const iv = {
   password: '',
 }
 
+const query = gql`
+  mutation($input: SignInInput) {
+    signIn(input: $input) {
+      username
+      email
+      created_at
+    }
+  }
+`
+
 const SignIn = () => {
-  // const { input, handleChange } = useInput(iv)
-  // const [error, setError] = React.useState<{ [key: string]: string }>({})
-  // //@ts-ignore
-  // const mutation = useSignIn({ input })
-  const { mutation, handleSubmit, input, handleChange, error } = useSignIn(iv)
+  const { input, error, mutation, handleChange, handleSubmit } = useMutation({
+    iv,
+    query,
+    id: 'signIn',
+  })
 
   return (
     <Layout minHeight>

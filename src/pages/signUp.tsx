@@ -1,12 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
-import { isEmpty } from 'ramda'
+import { gql } from 'graphql-request'
 import { Box, Typography, LinearProgress } from '@material-ui/core'
 import { Layout } from '../components'
 import { Field, Form, FormAlert } from '../elements'
-import { useInput, useSignUp } from '../hooks'
-import { validateInput } from '../utils/functions'
+import { useMutation } from '../hooks'
 import { ROUTES } from '../utils/constants'
+
 const {
   ROUTES: { SIGN_IN },
 } = ROUTES
@@ -17,32 +17,22 @@ const iv = {
   email: '',
 }
 
-const SignUp = () => {
-  const { input, handleChange } = useInput(iv)
-  const [error, setError] = React.useState<{ [key: string]: string }>({})
-  //@ts-ignore
-  const mutation = useSignUp({ input })
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault()
-    const res = validateInput(input)
-
-    return isEmpty(res) ? (setError({}), mutation.mutate()) : setError(res)
+const query = gql`
+  mutation($input: SignUpInput) {
+    signUp(input: $input) {
+      username
+      email
+      created_at
+    }
   }
+`
 
-  React.useEffect(() => {
-    let timer: any
-
-    if (mutation.isError) {
-      timer = setTimeout(() => {
-        mutation.reset()
-      }, 5000)
-    }
-
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [mutation.isLoading])
+export default function SignUp() {
+  const { input, error, mutation, handleChange, handleSubmit } = useMutation({
+    iv,
+    query,
+    id: 'signUp',
+  })
 
   return (
     <Layout minHeight>
@@ -100,5 +90,3 @@ const SignUp = () => {
     </Layout>
   )
 }
-
-export default SignUp
