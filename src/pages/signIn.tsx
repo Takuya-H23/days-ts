@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { gql } from 'graphql-request'
 import { Box, Typography } from '@material-ui/core'
 import { Layout } from '../components'
-import { Field, Form, FormAlert } from '../elements'
+import { Field, Form, FormAlert, LinearProgress } from '../elements'
 import { useMutation } from '../hooks'
 import { ROUTES } from '../utils/constants'
 
@@ -38,6 +38,7 @@ export default function SignIn() {
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sign in
       </Typography>
+      <LinearProgress isLoading={mutation.isLoading} />
       <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} submitText="Sign in" spacing={3}>
         <Field

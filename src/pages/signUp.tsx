@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 import { gql } from 'graphql-request'
-import { Box, Typography, LinearProgress } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { Layout } from '../components'
-import { Field, Form, FormAlert } from '../elements'
+import { Field, Form, FormAlert, LinearProgress } from '../elements'
 import { useMutation } from '../hooks'
 import { ROUTES } from '../utils/constants'
 
@@ -39,16 +39,7 @@ export default function SignUp() {
       <Typography variant="h2" color="textPrimary" gutterBottom>
         Sing up
       </Typography>
-      {mutation.isLoading && (
-        <LinearProgress
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-          }}
-        />
-      )}
+      <LinearProgress isLoading={mutation.isLoading} />
       <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} spacing={3}>
         <Field
