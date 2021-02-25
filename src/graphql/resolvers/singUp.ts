@@ -2,13 +2,11 @@ import { hash } from 'bcryptjs'
 import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/lib/Either'
 import { pipe } from 'fp-ts/function'
-import { users } from '../utils/functions'
+import { general, users } from '../utils/functions'
 import { userTypes as U } from '../../utils/types'
 
 const signUpQuery =
   'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
-
-const id = (x: any): any => x
 
 // @ts-ignore
 export default async function signUp(_, { input }, { pool, cookies }) {
@@ -28,6 +26,9 @@ export default async function signUp(_, { input }, { pool, cookies }) {
   )
 
   return await signUpUser().then(
-    E.fold(id, ({ user, token }) => (users.setAuthCookie(cookies)(token), user))
+    E.fold(
+      general.id,
+      ({ user, token }) => (users.setAuthCookie(cookies)(token), user)
+    )
   )
 }
