@@ -1,20 +1,11 @@
 import React from 'react'
-import { useMutation } from 'react-query'
+import { useMutation as useReactQueryMutation} from 'react-query'
 import { isEmpty } from 'ramda'
-import { request, gql } from 'graphql-request'
+import { request} from 'graphql-request'
 import useInput from './useInput'
 import { ROUTES } from '../utils/constants'
 import { validateInput } from '../utils/functions'
 
-const signInQuery = gql`
-  mutation($input: SignInInput) {
-    signIn(input: $input) {
-      username
-      email
-      created_at
-    }
-  }
-`
 interface IV {
   [key: string]: any
 }
@@ -25,11 +16,11 @@ interface Args {
   query: string
 }
 
-export default function useSignIn({ iv, id, query }: Args) {
+export default function useMutation({ iv, id, query }: Args) {
   const { input, handleChange } = useInput(iv)
   const [error, setError] = React.useState<{ [key: string]: string }>({})
 
-  const mutation = useMutation(
+  const mutation = useReactQueryMutation(
     id,
     async () => await request(ROUTES.END_POINT, query, { input })
   )
