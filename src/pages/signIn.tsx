@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import { gql } from 'graphql-request'
 import { Box, Typography } from '@material-ui/core'
@@ -26,7 +25,7 @@ const query = gql`
   }
 `
 
-export default function SignIn() {
+export default function SignIn () {
   const { input, error, mutation, handleChange, handleSubmit } = useMutation({
     iv,
     query,
