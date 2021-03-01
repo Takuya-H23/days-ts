@@ -23,6 +23,7 @@ const Form = ({
           variant="contained"
           type="submit"
           style={{ display: hideSubmit ? 'none' : 'block' }}
+          color="primary"
         >
           {submitText || 'Submit'}
         </Button>
