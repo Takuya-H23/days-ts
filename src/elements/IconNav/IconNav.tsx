@@ -4,17 +4,18 @@ import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 
 interface Props {
   Icon: React.ReactNode
-  text: string
+  href: string
+  label: string
 }
 
-export default function IconNav({ Icon, text }: Props) {
+export default function IconNav({ Icon, label, href }: Props) {
   return (
     <ListItem button>
       <ListItemIcon>{Icon}</ListItemIcon>
-      <Link href="/">
+      <Link href={href}>
         <a>
           <ListItemText
-            primary={text}
+            primary={label}
             primaryTypographyProps={{ color: 'textPrimary' }}
           />
         </a>

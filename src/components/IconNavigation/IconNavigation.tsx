@@ -1,11 +1,12 @@
 import { List } from '@material-ui/core'
-import DashboardIcon from '@material-ui/icons/Dashboard'
+import { Dashboard, Note } from '@material-ui/icons'
 import { IconNav } from '../../elements'
 
 export default function IconNavigation() {
   return (
     <List>
-      <IconNav Icon={<DashboardIcon />} text="Dashboard" />
+      <IconNav Icon={<Dashboard />} label="Dashboard" href="/dashboard" />
+      <IconNav Icon={<Note />} label="Notes" href="/dashboard/notes" />
     </List>
   )
 }
