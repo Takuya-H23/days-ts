@@ -1,12 +1,12 @@
 import { Box, Grid } from '@material-ui/core'
 import Header from '../Header'
+import IconNavigation from '../IconNavigation'
 
 interface Props {
-  left: React.ReactNode
-  right: React.ReactNode
+  children: React.ReactNode
 }
 
-export default function DashboardLayout({ left, right }: Props) {
+export default function DashboardLayout({ children }: Props) {
   return (
     <Box bgcolor="background.default">
       <Header />
@@ -21,7 +21,9 @@ export default function DashboardLayout({ left, right }: Props) {
             xl={2}
             style={{ border: '1px solid #fff' }}
           >
-            <Box p={1}>{left}</Box>
+            <Box p={1}>
+              <IconNavigation />
+            </Box>
           </Grid>
           <Grid
             item
@@ -32,7 +34,7 @@ export default function DashboardLayout({ left, right }: Props) {
             xl={10}
             style={{ border: '1px solid #fff' }}
           >
-            <Box p={1}>{right}</Box>
+            <Box p={1}>{children}</Box>
           </Grid>
         </Grid>
       </Box>
