@@ -20,7 +20,7 @@ export default gql`
   }
 
   type Category {
-    category_id: ID!
+    note_category_id: ID!
     category: String!
     created_at: Stirng!
     updated_at: Stirng

@@ -25,7 +25,7 @@ const query = gql`
   }
 `
 
-export default function SignIn () {
+export default function SignIn() {
   const { input, error, mutation, handleChange, handleSubmit } = useMutation({
     iv,
     query,
@@ -46,15 +46,6 @@ export default function SignIn () {
           value={input.email}
           error={Boolean(error.email)}
           helperText={error.email || ' '}
-          onChange={handleChange}
-        />
-        {/* @ts-ignore */}
-        <Field.Password
-          id="signInPassword"
-          helperText="Password length must be 6 to 16"
-          error={Boolean(error.password)}
-          name="password"
-          value={input.password}
           onChange={handleChange}
         />
       </Form>

@@ -1,13 +1,11 @@
+import createNoteCategory from './createNoteCategory'
 import signUp from './singUp'
 import signIn from './signIn'
 import hello from './hello'
 
 export default {
   Query: {
-    hello
+    hello,
   },
-  Mutation: {
-    signIn,
-    signUp,
-  }
+  Mutation: { createNoteCategory, signIn, signUp },
 }
