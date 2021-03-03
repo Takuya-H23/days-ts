@@ -1,13 +1,14 @@
 import { gql } from 'apollo-server-micro'
 
 export default gql`
-  type Query  {
+  type Query {
     hello: String!
   }
 
   type Mutation {
     signIn(input: SignInInput): User!
     signUp(input: SignUpInput): User!
+    createNoteCategory(input: CreateNoteCategoryInput): Category!
   }
 
   type User {
@@ -16,6 +17,14 @@ export default gql`
     email: String!
     created_at: String!
     last_login: String
+  }
+
+  type Category {
+    user_id: ID!
+    note_category_id: ID!
+    category: String!
+    created_at: String!
+    updated_at: String
   }
 
   input SignInInput {
@@ -27,5 +36,9 @@ export default gql`
     username: String!
     email: String!
     password: String!
+  }
+
+  input CreateNoteCategoryInput {
+    category: String!
   }
 `

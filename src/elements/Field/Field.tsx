@@ -3,6 +3,7 @@ import { over, lensIndex, toUpper, join, compose, split } from 'ramda'
 import { Box, Grid, IconButton, TextField } from '@material-ui/core'
 import {
   AccountBox,
+  Category,
   Email,
   Visibility,
   VisibilityOff,
@@ -20,6 +21,7 @@ const icons = {
   email: Email,
   password: VisibilityOff,
   text: Visibility,
+  category: Category
 }
 
 type GridItemProps = {
