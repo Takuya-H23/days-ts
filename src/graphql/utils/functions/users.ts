@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import * as TE from 'fp-ts/TaskEither'
-import { pipe } from 'fp-ts/function'
+import * as E from 'fp-ts/Either'
+import { pipe, flow } from 'fp-ts/function'
 import { compose, head, isNil, prop } from 'ramda'
 import { userTypes as U } from '../../../utils/types'
 import { AUTH } from '../../../utils/constants'
@@ -14,6 +15,12 @@ export const setAuthCookie = (cookies: any) => (token: string) =>
 
 export const genToken = (secret: any, id: string): string =>
   jwt.sign({ id }, secret)
+
+export const getCookie = (cookies: any) => cookies.get(AUTH.AUTH_COOKIE)
+
+export const getUser = flow(getCookie, E.fromNullable(null))
+
+// User fetching ===========================================================
 
 export const genServerError = (err: Error) =>
   //@ts-ignore
