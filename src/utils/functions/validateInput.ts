@@ -17,6 +17,7 @@ const validations = {
   username: checkPresence,
   email: checkPresence.concat(Predicate(isEmail)),
   password: checkPresence.concat(Predicate(isPassword)),
+  category: checkPresence,
 }
 
 const validateInput = (input: { [key: string]: string }) =>

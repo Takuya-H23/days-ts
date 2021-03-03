@@ -8,7 +8,7 @@ export default gql`
   type Mutation {
     signIn(input: SignInInput): User!
     signUp(input: SignUpInput): User!
-    createNoteCategory(input: CreateNoteCategory): Category!
+    createNoteCategory(input: CreateNoteCategoryInput): Category!
   }
 
   type User {
@@ -22,8 +22,8 @@ export default gql`
   type Category {
     note_category_id: ID!
     category: String!
-    created_at: Stirng!
-    updated_at: Stirng
+    created_at: String!
+    updated_at: String
   }
 
   input SignInInput {
@@ -37,7 +37,7 @@ export default gql`
     password: String!
   }
 
-  input CreateNoteCategory {
+  input CreateNoteCategoryInput {
     category: String!
   }
 `
