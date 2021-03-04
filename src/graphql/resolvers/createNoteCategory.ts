@@ -5,7 +5,8 @@ import * as E from 'fp-ts/Either'
 export default async function createNoteCatogory(
   _,
   { input },
-  { pool, cookies }
+  { pool, cookies, userEither }
 ) {
+  console.log(userEither)
   return { note_category_id: 1, category: 'test', created_at: 'test' }
 }

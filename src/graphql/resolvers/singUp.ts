@@ -9,7 +9,11 @@ const signUpQuery =
   'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
 
 // @ts-ignore
-export default async function signUp(_, { input }, { pool, cookies }) {
+export default async function signUp(
+  _,
+  { input },
+  { pool, cookies, userEither }
+) {
   const hashed = await hash(input.password, 10)
 
   const insertUser = () =>
