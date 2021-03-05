@@ -7,6 +7,7 @@ const query = gql`
   mutation($input: CreateNoteCategoryInput) {
     createNoteCategory(input: $input) {
       note_category_id
+      user_id
       category
       created_at
     }
