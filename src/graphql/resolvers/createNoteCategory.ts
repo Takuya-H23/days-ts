@@ -13,11 +13,12 @@ export default async function createNoteCategory(
   { pool, userIdEither }
 ) {
   const query = id => pool.query(createNoteCategoryQuery, [id, input.category])
+  const checkQuery = id => pool.query(checkDuplicates, [id, input.category])
 
-  const test = pipe(
+  const insertNoteCategory = pipe(
     TE.fromEither(userIdEither),
     TE.chain(({ id }) => TE.tryCatch(() => query(id), genServerError))
   )
 
-  return await test().then(E.fold(id, getHeadFromRows))
+  return await insertNoteCategory().then(E.fold(id, getHeadFromRows))
 }
