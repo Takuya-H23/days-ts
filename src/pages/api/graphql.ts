@@ -36,11 +36,12 @@ const apolloServer = new ApolloServer({
   resolvers,
   context: ({ req, res }: NextApi) => {
     const cookies = new Cookies(req, res)
+    const userIdEither = getUserIdEither(cookies)
 
     return {
       cookies,
       pool,
-      userEither: getUserIdEither(cookies),
+      userIdEither,
     }
   },
 })
