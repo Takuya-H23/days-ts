@@ -6,7 +6,7 @@ import { compose, prop } from 'ramda'
 import {
   getHeadFromRows,
   genServerError,
-  id as identity,
+  identity,
 } from '../utils/functions/general'
 
 const isZero = x => Number(x) === 0
@@ -23,18 +23,20 @@ export default async function createNoteCategory(
   { input },
   { pool, userIdEither }
 ) {
-  const query = id => pool.query(createNoteCategoryQuery, [id, input.category])
+  const insertQuery = id =>
+    pool.query(createNoteCategoryQuery, [id, input.category])
 
-  const checkQuery = id => pool.query(checkDuplicates, [id, input.category])
+  const checkDuplicateQuery = id =>
+    pool.query(checkDuplicates, [id, input.category])
 
   const checkNoteCategoryDuplicates = pipe(
     TE.fromEither(userIdEither),
     TE.chain(({ id }) =>
       pipe(
-        TE.tryCatch(() => checkQuery(id), genServerError),
+        TE.tryCatch(() => checkDuplicateQuery(id), genServerError),
         TE.chain(res =>
           shouldInsert(res)
-            ? TE.tryCatch(() => query(id), genServerError)
+            ? TE.tryCatch(() => insertQuery(id), genServerError)
             : TE.left(new Error('Category already exists'))
         )
       )

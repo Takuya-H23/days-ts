@@ -1,6 +1,6 @@
 import { compose, head, prop } from 'ramda'
 
-export const id = (x: any): any => x
+export const identity = (x: any): any => x
 
 export const genServerError = (err: Error) =>
   //@ts-ignore

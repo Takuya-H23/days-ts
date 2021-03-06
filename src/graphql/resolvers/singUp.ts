@@ -31,7 +31,7 @@ export default async function signUp(
 
   return await signUpUser().then(
     E.fold(
-      general.id,
+      general.identity,
       ({ user, token }) => (users.setAuthCookie(cookies)(token), user)
     )
   )
