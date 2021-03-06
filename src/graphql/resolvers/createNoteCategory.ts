@@ -3,9 +3,14 @@ import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/Either'
 import { pipe } from 'fp-ts/function'
 import { compose, prop } from 'ramda'
-import { getHeadFromRows, genServerError, id } from '../utils/functions/general'
+import {
+  getHeadFromRows,
+  genServerError,
+  id as identity,
+} from '../utils/functions/general'
 
-const checkCount = compose(porp('count'), getHeadFromRows)
+const isZero = x => Number(x) === 0
+const shouldInsert = compose(isZero, prop('count'), getHeadFromRows)
 
 const createNoteCategoryQuery =
   'INSERT INTO note_categories (user_id, category,created_at) VALUES ($1, $2, NOW()) RETURNING *'
@@ -19,22 +24,24 @@ export default async function createNoteCategory(
   { pool, userIdEither }
 ) {
   const query = id => pool.query(createNoteCategoryQuery, [id, input.category])
+
   const checkQuery = id => pool.query(checkDuplicates, [id, input.category])
 
   const checkNoteCategoryDuplicates = pipe(
     TE.fromEither(userIdEither),
-    TE.chain(({ id }) => TE.tryCatch(() => checkQuery(id), genServerError))
+    TE.chain(({ id }) =>
+      pipe(
+        TE.tryCatch(() => checkQuery(id), genServerError),
+        TE.chain(res =>
+          shouldInsert(res)
+            ? TE.tryCatch(() => query(id), genServerError)
+            : TE.left(new Error('Category already exists'))
+        )
+      )
+    )
   )
 
-  const res = await checkNoteCategoryDuplicates().then(
-    E.fold(genSErverError, x => x.rows)
+  return await checkNoteCategoryDuplicates().then(
+    E.fold(identity, getHeadFromRows)
   )
-  console.log(res)
-
-  const insertNoteCategory = pipe(
-    TE.fromEither(userIdEither),
-    TE.chain(({ id }) => TE.tryCatch(() => query(id), genServerError))
-  )
-
-  return await insertNoteCategory().then(E.fold(id, getHeadFromRows))
 }
