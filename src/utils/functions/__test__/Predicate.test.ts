@@ -1,5 +1,5 @@
 import { prop } from 'ramda'
-import Predicate from '../Predicate'
+import { Predicate } from 'fts-utils'
 import { isPresent } from '../validateInput'
 
 const isPresentPredicate = Predicate(isPresent)
