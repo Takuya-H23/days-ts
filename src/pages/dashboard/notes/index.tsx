@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request'
 import { useMutation } from '../../../hooks'
-import { Field, Form } from '../../../elements'
+import { Field, Form, FormAlert, LinearProgress } from '../../../elements'
 import { DashboardLayout } from '../../../components'
 
 const query = gql`
@@ -27,6 +27,8 @@ export default function Notes() {
 
   return (
     <DashboardLayout>
+      <LinearProgress isLoading={mutation.isLoading} />
+      <FormAlert isError={mutation.isError} error={mutation.error} />
       <Form onSubmit={handleSubmit} submitText="Submit" spacing={3} hideSubmit>
         <Field
           id="createNoteCategory"
