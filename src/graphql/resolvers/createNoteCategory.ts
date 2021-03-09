@@ -13,10 +13,10 @@ const isZero = x => Number(x) === 0
 const shouldInsert = compose(isZero, prop('count'), getHeadFromRows)
 
 const createNoteCategoryQuery =
-  'INSERT INTO note_categories (user_id, category,created_at) VALUES ($1, $2, NOW()) RETURNING *'
+  'INSERT INTO note_categories (user_id, note_category, created_at) VALUES ($1, $2, NOW()) RETURNING *'
 
 const checkDuplicates =
-  'SELECT count(category) FROM note_categories WHERE user_id = $1 AND category = $2'
+  'SELECT count(note_category) FROM note_categories WHERE user_id = $1 AND note_category = $2'
 
 export default async function createNoteCategory(
   _,
@@ -24,10 +24,10 @@ export default async function createNoteCategory(
   { pool, userIdEither }
 ) {
   const insertQuery = id =>
-    pool.query(createNoteCategoryQuery, [id, input.category])
+    pool.query(createNoteCategoryQuery, [id, input.noteCategory])
 
   const checkDuplicateQuery = id =>
-    pool.query(checkDuplicates, [id, input.category])
+    pool.query(checkDuplicates, [id, input.noteCategory])
 
   const checkNoteCategoryDuplicates = pipe(
     TE.fromEither(userIdEither),

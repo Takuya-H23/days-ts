@@ -8,12 +8,12 @@ const query = gql`
     createNoteCategory(input: $input) {
       note_category_id
       user_id
-      category
+      note_category
       created_at
     }
   }
 `
-const iv = { category: '' }
+const iv = { noteCategory: '' }
 const id = 'createNoteCategory'
 
 export default function Notes() {
@@ -23,7 +23,7 @@ export default function Notes() {
     query,
   })
 
-  console.log(mutation)
+  // console.log(mutation)
 
   return (
     <DashboardLayout>
@@ -32,10 +32,10 @@ export default function Notes() {
       <Form onSubmit={handleSubmit} submitText="Submit" spacing={3} hideSubmit>
         <Field
           id="createNoteCategory"
-          name="category"
-          value={input.category}
+          name="noteCategory"
+          value={input.noteCategory}
           onChange={handleChange}
-          error={Boolean(error.category)}
+          error={Boolean(error.noteCategory)}
         />
       </Form>
     </DashboardLayout>
