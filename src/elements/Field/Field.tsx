@@ -21,7 +21,7 @@ const icons = {
   email: Email,
   password: VisibilityOff,
   text: Visibility,
-  category: Category
+  noteCategory: Category,
 }
 
 type GridItemProps = {

@@ -22,7 +22,7 @@ export default gql`
   type Category {
     user_id: ID!
     note_category_id: ID!
-    category: String!
+    note_category: String!
     created_at: String!
     updated_at: String
   }
@@ -39,6 +39,6 @@ export default gql`
   }
 
   input CreateNoteCategoryInput {
-    category: String!
+    noteCategory: String!
   }
 `

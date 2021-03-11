@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { hash } from 'bcryptjs'
 import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/lib/Either'
@@ -8,8 +9,11 @@ import { userTypes as U } from '../../utils/types'
 const signUpQuery =
   'INSERT INTO users (username, email, password, created_at) VALUES ($1, $2, $3, NOW()) RETURNING user_id, username, email, created_at'
 
-// @ts-ignore
-export default async function signUp(_, { input }, { pool, cookies }) {
+export default async function signUp(
+  _,
+  { input },
+  { pool, cookies, userEither }
+) {
   const hashed = await hash(input.password, 10)
 
   const insertUser = () =>
@@ -27,7 +31,7 @@ export default async function signUp(_, { input }, { pool, cookies }) {
 
   return await signUpUser().then(
     E.fold(
-      general.id,
+      general.identity,
       ({ user, token }) => (users.setAuthCookie(cookies)(token), user)
     )
   )

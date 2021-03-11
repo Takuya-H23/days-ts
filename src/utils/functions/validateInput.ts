@@ -1,5 +1,5 @@
 import { isEmpty } from 'ramda'
-import Predicate, { Predicate as P } from './Predicate'
+import { Predicate } from 'fts-utils'
 
 export const isPresent = (x: string): boolean => !isEmpty(x.trim())
 
@@ -17,7 +17,7 @@ const validations = {
   username: checkPresence,
   email: checkPresence.concat(Predicate(isEmail)),
   password: checkPresence.concat(Predicate(isPassword)),
-  category: checkPresence,
+  noteCategory: checkPresence,
 }
 
 const validateInput = (input: { [key: string]: string }) =>
