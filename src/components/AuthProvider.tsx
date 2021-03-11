@@ -28,23 +28,15 @@ const query = gql`
 `
 
 const useFetchUser = () => {
-  return useQuery(
-    'user',
-    async () => {
-      const data = request(END_POINT, query)
-      return data
-    },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-    }
-  )
+  return useQuery('user', async () => request(END_POINT, query), {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  })
 }
 
 export default function AuthProvider({ children }: Props) {
-  const data = useFetchUser()
-  console.log(data)
+  const { isLoading, data, isError } = useFetchUser()
   const value = {}
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
