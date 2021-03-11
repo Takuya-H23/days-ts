@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ThemeProvider } from '@material-ui/core'
 import { darkTheme } from '../utils/styles/theme'
+import { AuthProvider } from '../components'
 import '../styles/globals.css'
 
 const queryClient = new QueryClient()
@@ -29,8 +30,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={darkTheme}>
-          <Component {...pageProps} />
-          <ReactQueryDevtools initialIsOpen={false} />
+          <AuthProvider>
+            <Component {...pageProps} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </AuthProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </>
