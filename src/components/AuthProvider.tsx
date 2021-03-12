@@ -42,8 +42,10 @@ const L = {
   isLoading: lensProp('isLoading'),
 }
 
+const init = (...x) => console.log(x)
+
 const actions = {
-  fetchUser,
+  init,
 }
 
 const reducer = (state, { type, payload }) => {
@@ -54,8 +56,9 @@ export default function AuthProvider({ children }: Props) {
   const [state, dispatch] = React.useReducer(reducer, iv)
 
   React.useEffect(() => {
-    fetchUser().then(d => dispatch({ type: 'fetchUser', payload: d.fetchUser }))
-    //    fetchUser().then(console.log)
+    fetchUser()
+      .then(d => dispatch({ type: 'init', payload: d.fetchUser }))
+      .catch(console.error)
   }, [])
   console.log('state', state)
 

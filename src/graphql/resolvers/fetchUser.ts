@@ -1,6 +1,6 @@
 import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/lib/Either'
-import { pipe } from 'fp-ts/function'
+import { pipe, flow } from 'fp-ts/function'
 import {
   genServerError,
   getHeadFromRows,
@@ -17,6 +17,5 @@ export default async function fetchUser(_, __, { pool, userIdEither }) {
     TE.chain(({ id }) => TE.tryCatch(() => fetchUser(id), genServerError))
   )
 
-  console.log('run!!')
   return await fetchUserTE().then(E.fold(identity, getHeadFromRows))
 }
