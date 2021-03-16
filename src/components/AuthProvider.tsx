@@ -50,21 +50,23 @@ const L = {
 
 const init = (state: State) => over(L.isLoading, () => true, state)
 
-const updateUser = (state: State, payload: User) =>
+const returnFalse = (): boolean => false
+const returnTrue = (): boolean => true
+
+const updateUserSuccess = (state: State, payload: User) =>
   compose(
-    over(L.isLoading, () => false),
-    over(L.isLoggedIn, () => true),
+    over(L.isLoading, returnFalse),
+    over(L.isLoggedIn, returnTrue),
     over(L.user, () => payload)
   )(state)
 
 const actions: Record<string, any> = {
   init,
-  updateUser,
+  updateUserSuccess,
 }
 
-const reducer = (state: any, { type, payload }: any) => {
-  return actions[type](state, payload)
-}
+const reducer = (state: any, { type, payload }: any) =>
+  actions[type](state, payload)
 
 export default function AuthProvider({ children }: Props) {
   const [state, dispatch] = React.useReducer(reducer, iv)
@@ -73,12 +75,11 @@ export default function AuthProvider({ children }: Props) {
     dispatch({ type: 'init' })
 
     fetchUser()
-      .then(d => dispatch({ type: 'updateUser', payload: d.fetchUser }))
+      .then(d => dispatch({ type: 'updateUserSuccess', payload: d.fetchUser }))
       .catch(console.error)
   }, [])
 
-  console.log(state)
+  const value = { state }
 
-  const value = {}
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

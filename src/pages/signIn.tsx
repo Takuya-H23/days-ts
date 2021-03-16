@@ -48,6 +48,14 @@ export default function SignIn() {
           helperText={error.email || ' '}
           onChange={handleChange}
         />
+        <Field.Password
+          id="signInPassword"
+          name="password"
+          value={input.password}
+          error={Boolean(error.password)}
+          helperText={error.email || ' '}
+          onChange={handleChange}
+        />
       </Form>
       <Box mt={2}>
         <Typography variant="body1" color="textPrimary">
