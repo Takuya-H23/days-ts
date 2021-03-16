@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { compose, lensProp, over } from 'ramda'
 import { request, gql } from 'graphql-request'
 import { END_POINT } from '../utils/constants/routes'
@@ -29,7 +30,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const AuthContext = React.createContext(iv)
+export const AuthContext = React.createContext(iv)
 
 const query = gql`
   query {
@@ -70,6 +71,7 @@ const reducer = (state: any, { type, payload }: any) =>
 
 export default function AuthProvider({ children }: Props) {
   const [state, dispatch] = React.useReducer(reducer, iv)
+  const { route, push } = useRouter()
 
   React.useEffect(() => {
     dispatch({ type: 'init' })
